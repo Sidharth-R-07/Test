@@ -1,4 +1,5 @@
 import requests
+from django.http import JsonResponse
 
 def getData(request):
     # API endpoint
@@ -14,9 +15,12 @@ def getData(request):
         response = requests.get(api_url,headers=headers)
         if response.status_code == 200:
             data = response.json()
-            print(data)
+            print("-----------DATA:::"+data)
+            return JsonResponse(data, safe=False)
         else:
             print("Error:", response.status_code)
+            return JsonResponse({"error": response.status_code}, status=response.status_code)
     except Exception as e:
         print("An error occurred:", e)
+        return JsonResponse({"error": str(e)}, status=500)
 
