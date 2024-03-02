@@ -2,15 +2,15 @@ import requests
 
 def getData():
     # API endpoint
-    print("getData CALLED-----------------------")
+    print("---------------getData CALLED-----------------------")
     api_url = "http://external.chalo.com/dashboard/gtfs/realtime/thiruvananthapuram/ksrtc/bus"
-    external_auth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     header = {
-        "externalauth": external_auth
+        "externalauth": "RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9"
     }
     
     try:
-        response = requests.get(api_url, headers=header, timeout=15)
+        response = requests.get(api_url, headers=header, timeout=20)
+        print("STATUS CODE::"+response.status_code+"-------------------")
         if response.status_code == 200:
             data = response.json()
             print(data)
@@ -21,7 +21,3 @@ def getData():
     except Exception as e:
         print("An error occurred:", e)
         return {"error": str(e)}
-
-
-
-
