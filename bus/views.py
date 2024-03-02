@@ -6,7 +6,6 @@ def getData(request):
     api_url = "https://external.chalo.com/dashboard/gtfs/realtime/thiruvananthapuram/ksrtc/bus"
     headers = {
         "Content-Type": "application/json",
-        "Accept": "application/json",
         "externalauth":"RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9"
     }
     
