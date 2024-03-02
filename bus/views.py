@@ -9,7 +9,7 @@ def getData(request):
     }
     
     try:
-        response = requests.get(api_url,headers = header)
+        response = requests.get(api_url,headers = header,timeout=15)
         if response.status_code == 200:
             data = response.json()
             print(data)
