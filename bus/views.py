@@ -3,7 +3,7 @@ import requests
 def getData():
     # API endpoint
     print("getData CALLED-----------------------")
-    api_url = "http://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId=KS3132"
+    api_url = "https://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId=KS3132"
     external_auth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     header = {
         "externalauth": external_auth
