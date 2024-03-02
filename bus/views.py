@@ -12,7 +12,8 @@ def getData(request):
     }
     
     try:
-        response = requests.get(api_url,headers=headers)
+        response = requests.get(api_url,headers=headers,timeout=20)
+        print("------------RESPONSE:::"+response)
         if response.status_code == 200:
             data = response.json()
             print("-----------DATA:::"+data)
