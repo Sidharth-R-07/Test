@@ -5,10 +5,9 @@ def getData(request):
     # API endpoint
     print("------------GET DATA CALLED----------------")
     api_url = "http://external.chalo.com/dashboard/gtfs/realtime/thiruvananthapuram/ksrtc/bus"
-    external_auth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
+    # externalauth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     headers = {
-        "Content-Type": "application/json",
-        "externalauth": external_auth
+        "externalauth": 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     }
     
     try:
