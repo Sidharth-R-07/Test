@@ -12,7 +12,7 @@ def getData(request):
     
     try:
         response = requests.get(api_url,headers=headers,timeout=10)
-        print("------------RESPONSE:::"+response.status_code)
+        print("------------RESPONSE:::"+str(response.status_code))
         if response.status_code == 200:
             data = response.json()
             print("-----------DATA:::"+data)
