@@ -16,7 +16,7 @@ def getData(request):
         print("STATUS CODE:"+str(response.status_code))        
         if response.status_code == 200:
             data = response.content.decode('utf-8') 
-            print(data)
+            print(json.loads(data))
             return JsonResponse(data, safe=False)
         else:
             print("Error:", response.status_code)
