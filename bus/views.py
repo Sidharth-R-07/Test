@@ -15,6 +15,7 @@ def getData(request):
         response = requests.get(api_url,headers=headers,timeout=10)        
         if response.status_code == 200:
             response_dict = response.json()
+            print("Response:", response_dict)
             print(json.dumps(response_dict, indent=4, sort_keys=True))
             return JsonResponse(response.content, safe=False)
         else:
