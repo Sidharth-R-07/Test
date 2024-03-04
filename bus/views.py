@@ -1,5 +1,10 @@
 import json
 import requests
+import urllib3
+
+# Create a PoolManager instance
+http = urllib3.PoolManager()
+
 from django.http import JsonResponse
 
 def getData(request):
@@ -11,7 +16,8 @@ def getData(request):
         "externalauth": 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     }
     try:
-        response = requests.get(api_url,headers=headers,timeout=10)     
+        # response = requests.get(api_url,headers=headers,timeout=10)   
+        response = http.request('GET', 'http://www.example.com')  
         if response.status_code == 200:
             print("DATA",str(response.content.decode('iso-8859-1')))
             print("ROW DATA",response.raw)
