@@ -21,7 +21,7 @@ def getData(request):
         response = http.request('GET', api_url, headers=headers)  
         
         # print("DATA",str(response.content.decode('iso-8859-1')))
-        print("ROW DATA",response.json())
+        print("ROW DATA",response.json)
         print("DATA",response.data)
         return JsonResponse(response.data, safe=False)
      
