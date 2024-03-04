@@ -14,6 +14,8 @@ def getData(request):
         response = requests.get(api_url,headers=headers,timeout=10)     
         if response.status_code == 200:
             print("DATA",str(response.content.decode('iso-8859-1')))
+            print("ROW DATA",response.raw)
+            print(type(response.raw))
             return JsonResponse(response.content, safe=False)
         else:
             print("Error:", response.status_code)
