@@ -10,11 +10,10 @@ def getData(request):
     headers = {
         "externalauth": 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     }
-    
     try:
-        response = requests.get(api_url,headers=headers,timeout=10)        
+        response = requests.get(api_url,headers=headers,timeout=10).json()        
         if response.status_code == 200:
-            print("DATA",response.encoding)
+            print("DATA",response.content)
             return JsonResponse(response.content, safe=False)
         else:
             print("Error:", response.status_code)
