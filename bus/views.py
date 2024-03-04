@@ -1,4 +1,4 @@
-import chardet
+import json
 import requests
 from django.http import JsonResponse
 
@@ -14,12 +14,8 @@ def getData(request):
     try:
         response = requests.get(api_url,headers=headers,timeout=10)        
         if response.status_code == 200:
-            encoding = chardet.detect(response.content)['encoding']
-            if encoding is None:
-                encoding = 'utf-8'  # Set to the default encoding you want to use
-            decoded_data = response.content.decode(encoding)
-            print(decoded_data)
-            print("-----------DATA:::"+decoded_data)
+            response_dict = response.json()
+            print(json.dumps(response_dict, indent=4, sort_keys=True))
             return JsonResponse(response.content, safe=False)
         else:
             print("Error:", response.status_code)
