@@ -15,6 +15,8 @@ def getData(request):
         response = requests.get(api_url,headers=headers,timeout=10)        
         if response.status_code == 200:
             encoding = chardet.detect(response.content)['encoding']
+            if encoding is None:
+                encoding = 'utf-8'  # Set to the default encoding you want to use
             decoded_data = response.content.decode(encoding)
             print(decoded_data)
             print("-----------DATA:::"+decoded_data)
