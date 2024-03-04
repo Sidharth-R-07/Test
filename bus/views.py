@@ -15,8 +15,17 @@ def getData(request):
         response = requests.get(api_url,headers=headers,timeout=10)
         print("STATUS CODE:"+str(response.status_code))        
         if response.status_code == 200:
-            data = response.content.decode('utf-8') 
-            print(json.loads(data))
+                encodings = ['utf-8', 'iso-8859-1']  # Try decoding using common encodings
+        for encoding in encodings:
+            try:
+                data = response.content.decode(encoding)
+                print(data)
+                return JsonResponse(data, safe=False)
+            except UnicodeDecodeError:
+                print(f"Decoding with {encoding} failed.")
+        # If all decoding attempts fail, treat the content as binary
+            data = response.content
+            print(data)
             return JsonResponse(data, safe=False)
         else:
             print("Error:", response.status_code)
