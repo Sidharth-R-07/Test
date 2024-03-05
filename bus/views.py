@@ -15,7 +15,7 @@ def getData(request):
     }
     try:
         response = http.request('GET', api_url, headers=headers)
-        data = response.data.decode('utf-8')
+        data = response.data.decode('ISO-8859-1')
         json_data = json.loads(data)
         print("JSON DATA", json_data)
 
