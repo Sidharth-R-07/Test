@@ -1,6 +1,7 @@
 import json
 import requests
 from google.transit import gtfs_realtime_pb2
+from google.transit import gtfs_realtime_pb2
 # Create a PoolManager instance
 from rest_framework.decorators import api_view
 
@@ -8,6 +9,7 @@ from django.http import JsonResponse
 
 @api_view(['GET'])
 def getData(request):
+    
     
     # API endpoint
     print("------------GET DATA CALLED----------------")
@@ -21,7 +23,7 @@ def getData(request):
         response = requests.get(api_url, headers=headers)
         data =  feed.ParseFromString(response.content)
         print("Data", feed.entity)
-        type(feed.entity)
+       
         return JsonResponse(data, safe=False)
      
     except Exception as e:
@@ -45,6 +47,7 @@ def getBusDetailsFromId(request):
             # Parse the JSON response
             data = response.json()
             # Return the JSON data
+            print("data", data)
             return JsonResponse(data, safe=False)
         else:
             # Return an error response if the request was unsuccessful
@@ -52,3 +55,4 @@ def getBusDetailsFromId(request):
     except Exception as e:
         print("An error occurred:", e)
         return JsonResponse({"error": str(e)}, status=500)
+       
