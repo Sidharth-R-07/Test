@@ -30,11 +30,13 @@ def getData(request):
         print("An error occurred:", e)
         return JsonResponse({"error": str(e)}, status=500)
 
-@api_view(['GET'])
+
+@api_view(['GET'])  # Add the api_view decorator
 def getBusDetailsFromId(request):
     print("------------GET BUS DETAILS CALLED----------------")
     # API endpoint
-    api_url = f"http://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId=KS3132"
+    vehicle_id = request.GET.get('vehicleId')  # Get the vehicleId from request parameters
+    api_url = f"https://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId={vehicle_id}"
     externalauth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     headers = {
         "externalauth": externalauth
@@ -42,12 +44,10 @@ def getBusDetailsFromId(request):
     try:
         response = requests.get(api_url, headers=headers)
         # Check if the request was successful
-        print("Response", response.raw)
         if response.status_code == 200:
             # Parse the JSON response
             data = response.json()
             # Return the JSON data
-            print("data", data)
             return JsonResponse(data, safe=False)
         else:
             # Return an error response if the request was unsuccessful
