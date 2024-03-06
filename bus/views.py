@@ -1,25 +1,29 @@
 import json
 import requests
-import urllib3
+from google.transit import gtfs_realtime_pb2
+# Create a PoolManager instance
+
+
 from django.http import JsonResponse
 
-# Create a PoolManager instance
-http = urllib3.PoolManager()
-
 def getData(request):
+    
     # API endpoint
     print("------------GET DATA CALLED----------------")
     api_url = "https://external.chalo.com/dashboard/gtfs/realtime/thiruvananthapuram/ksrtc/bus"
+    # externalauth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     headers = {
         "externalauth": 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
     }
     try:
-        response = http.request('GET', api_url, headers=headers)
-        data = response.data.decode('ISO-8859-1')
-        json_data = json.loads(data)
-        print("JSON DATA", json_data)
-
-        return JsonResponse(json_data, safe=False)
+        feed = gtfs_realtime_pb2.FeedMessage()
+        response = requests.get(api_url, headers=headers)
+        data =  feed.ParseFromString(response.content)
+        print("Data", data)
+        return JsonResponse(data, safe=False)
+     
     except Exception as e:
         print("An error occurred:", e)
         return JsonResponse({"error": str(e)}, status=500)
+
+
