@@ -31,26 +31,30 @@ def getData(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
-@api_view(['GET'])  # Add the api_view decorator
+
+@api_view(['POST'])
 def getBusDetailsFromId(request):
     print("------------GET BUS DETAILS CALLED----------------")
-    # API endpoint
-    vehicle_id = request.GET.get('vehicleId')  # Get the vehicleId from request parameters
-    api_url = f"https://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId={vehicle_id}"
-    externalauth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
-    headers = {
-        "externalauth": externalauth
-    }
     try:
+        # Get the vehicleId from the request body
+        data = json.loads(request.body)
+        vehicle_id = data.get('vehicleId')
+
+        if vehicle_id is None:
+            return JsonResponse({"error": "vehicleId is missing in request body"}, status=400)
+
+        # Your existing code to fetch bus details using vehicleId
+        api_url = f"https://external.chalo.com/dashboard/enterprise/v1/vehicle/sessionData/thiruvananthapuram/ksrtc?vehicleId={vehicle_id}"
+        externalauth = 'RWLXTEgMcmuMj1mehBWi3ROaAfTmQwXjGksxvxD9'
+        headers = {
+            "externalauth": externalauth
+        }
         response = requests.get(api_url, headers=headers)
-        # Check if the request was successful
+
         if response.status_code == 200:
-            # Parse the JSON response
             data = response.json()
-            # Return the JSON data
             return JsonResponse(data, safe=False)
         else:
-            # Return an error response if the request was unsuccessful
             return JsonResponse({"error": "Failed to fetch data"}, status=response.status_code)
     except Exception as e:
         print("An error occurred:", e)
