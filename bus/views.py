@@ -43,6 +43,7 @@ def getBusDetailsFromId(request):
             # Parse the JSON response
             data = response.json()
             # Return the JSON data
+            print("data", data)
             return JsonResponse(data, safe=False)
         else:
             # Return an error response if the request was unsuccessful
